@@ -15,10 +15,20 @@ void setup() {
 }
 
 void loop() {
-  drivePow = 255;
-  digitalWrite(dir_a, HIGH);
-  digitalWrite(dir_b, HIGH);
-  analogWrite(pwm_a, drivePow);
-  analogWrite(pwm_b, drivePow);
-//  delay(50);
+  while(!Serial.available()){
+  }
+  char readIn = Serial.read();
+  if(readIn == 'w'){
+    drivePow = 255;
+    digitalWrite(dir_a, HIGH);
+    digitalWrite(dir_b, HIGH);
+    analogWrite(pwm_a, drivePow);
+    analogWrite(pwm_b, drivePow);
+  }
+  else if( readIn == 's'){
+  }
+  else if( readIn == 'a'){
+  }
+  else if( readIn == 'd'){
+  }
 }
