@@ -19,16 +19,39 @@ void loop() {
   }
   char readIn = Serial.read();
   if(readIn == 'w'){
-    drivePow = 255;
     digitalWrite(dir_a, HIGH);
     digitalWrite(dir_b, HIGH);
     analogWrite(pwm_a, drivePow);
     analogWrite(pwm_b, drivePow);
+    delay(50);
+    analogWrite(pwm_a, 0);
+    analogWrite(pwm_b, 0);
   }
   else if( readIn == 's'){
+    digitalWrite(dir_a, LOW);
+    digitalWrite(dir_b, LOW);
+    analogWrite(pwm_a, drivePow);
+    analogWrite(pwm_b, drivePow);
+    delay(50);
+    analogWrite(pwm_a, 0);
+    analogWrite(pwm_b, 0);
   }
   else if( readIn == 'a'){
+    digitalWrite(dir_a, LOW);
+    digitalWrite(dir_b, HIGH);
+    analogWrite(pwm_a, drivePow);
+    analogWrite(pwm_b, drivePow);
+    delay(50);
+    analogWrite(pwm_a, 0);
+    analogWrite(pwm_b, 0);
   }
   else if( readIn == 'd'){
+    digitalWrite(dir_a, HIGH);
+    digitalWrite(dir_b, LOW);
+    analogWrite(pwm_a, drivePow);
+    analogWrite(pwm_b, drivePow);
+    delay(50);
+    analogWrite(pwm_a, 0);
+    analogWrite(pwm_b, 0);
   }
 }

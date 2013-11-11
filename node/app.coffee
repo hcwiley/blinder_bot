@@ -15,6 +15,7 @@ serialPort = new SerialPort process.env.SERIAL_PORT,
   baudrate: 9600
 , false
 
+serialError = false
 # create app, server, and web sockets
 app = express()
 server = http.createServer(app)
@@ -54,78 +55,46 @@ io.sockets.on "connection",  (socket) ->
   socket.on "disconnect", ->
     console.log "disconnected"
 
-  socket.on "lock", (data) ->
-    console.log "lock!"
-    serialPort.write "r", (err, results) ->
+  socket.on "forward", (data) ->
+    serialPort.write "w", (err, results) ->
       if err
         console.log('err ' + err)
         openSerial()
       console.log('results ' + results)
 
-  socket.on "unlock", (data) ->
-    console.log "unlock!"
-    serialPort.write "l", (err, results) ->
+  socket.on "backward", (data) ->
+    serialPort.write "s", (err, results) ->
       if err
         console.log('err ' + err)
         openSerial()
       console.log('results ' + results)
 
-  socket.on "on", (data) ->
-    console.log "on!"
-    serialPort.write "b", (err, results) ->
+  socket.on "left", (data) ->
+    serialPort.write "a", (err, results) ->
       if err
         console.log('err ' + err)
         openSerial()
       console.log('results ' + results)
 
-  socket.on "off", (data) ->
-    console.log "off!"
+  socket.on "right", (data) ->
     serialPort.write "d", (err, results) ->
       if err
         console.log('err ' + err)
         openSerial()
       console.log('results ' + results)
 
-  socket.on "near", (data) ->
-    console.log "near!"
-    serialPort.write "n", (err, results) ->
-      if err
-        console.log('err ' + err)
-        openSerial()
-      console.log('results ' + results)
-
-  socket.on "far", (data) ->
-    console.log "far!"
-    serialPort.write "f", (err, results) ->
-      if err
-        console.log('err ' + err)
-        openSerial()
-      console.log('results ' + results)
-
-
-# you need to be signed for this business!
-app.all "/auth/login", (req, res) ->
-  console.log req.body.password
-  console.log process.env.STUDIO_PASSWORD
-  if req.body.password?.match(process.env.STUDIO_PASSWORD)
-    req.session['auth'] = 'so-good'
-    return res.redirect('/')
-  return res.render('auth/login.jade', info:"you clearly don't know whats up")
 
 # UI routes
 app.get "/", (req, res) ->
-  if !process.env.HTML_DEBUG || !process.env.HTML_DEBUG.match('true')
-    if !req.session.auth?.match('so-good')
-      return res.render 'auth/login'
-  res.render "index.jade",
-    title: "Studio Time"
+  res.render "index.jade"
 
 openSerial = ->
   prev = process.env.SERIAL_PORT
-  if prev = '/dev/ttyACM0'
-    process.env.SERIAL_PORT= '/dev/ttyACM1'
-  else
-    process.env.SERIAL_PORT= '/dev/ttyACM0'
+  if serialError
+    if prev = '/dev/ttyACM0'
+      process.env.SERIAL_PORT= '/dev/ttyACM1'
+    else
+      process.env.SERIAL_PORT= '/dev/ttyACM0'
   port = process.env.SERIAL_PORT
   serialPort = new SerialPort port,
       baudrate: 9600
@@ -137,6 +106,7 @@ serialPort.on 'data', (data) ->
   console.log('data received: ' + data)
 
 serialPort.on 'error', (err) ->
+  serialError = true
   openSerial()
 
 setTimeout ->
@@ -145,7 +115,6 @@ setTimeout ->
   child.execFile "#{process.env.CWD}/captureImage.sh", (err, stdout, stderr) ->
     console.log stdout
 , 500
-
 
 server.listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
