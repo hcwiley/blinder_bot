@@ -1,0 +1,6 @@
+.DS_Store
+*/.DS_Store
+node_modules
+node/public/img/gallery
+node/assets/js/bootstrap
+node/assets/css/bootstrap

@@ -1,0 +1,29 @@
+{
+  "name"      : "studio-brain",
+  "version"   : "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">0.8"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "async": "*",
+    "coffee-script"         : "*",
+    "express"               : "*",
+    "connect-assets"        : "*",
+    "cookie"                : "*",
+    "jade"                  : "*",
+    "less"                  : "1.3.3",
+    "less-middleware"       : "0.1.11",
+    "passport"              : "*",
+    "passport-local"        : "*",
+    "socket.io"             : "*",
+    "socket.io-client"      : "*",
+    "twitter-bootstrap"     : "*",
+    "node-osc"              : "*",
+    "serialport"            : "*",
+    "supervisor"            : "*"
+  }
+}

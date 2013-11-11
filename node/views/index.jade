@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Hello World
+  .row
+    .span6
+      .span2
+        button#forward.btn.btn-success forward
+      .span2
+        button#backward.btn.btn-danger backward
+    .span6
+      .span2
+        button#left.btn.btn-success left
+      .span2
+        button#right.btn.btn-danger right
+  img#live(src='/img/foobar.jpeg')
