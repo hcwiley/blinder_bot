@@ -1,16 +1,10 @@
 extends layout
 
 block content
-  h1 Hello World
-  .row
-    .span8
-      .span2.offset1
-        button#forward.btn.btn-success forward
-      .span6
-        .span2
-          button#left.btn.btn-primary left
-        .span2
-          button#right.btn.btn-warning right
-      .span2.offset1
-        button#backward.btn.btn-danger backward
+  h1 blinder bot
+  #control-panel
+    button#forward.btn.btn-success forward
+    button#left.btn.btn-primary left
+    button#right.btn.btn-warning right
+    button#backward.btn.btn-danger backward
   img#live(src='/img/foobar.jpeg')

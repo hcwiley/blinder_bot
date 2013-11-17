@@ -1,9 +1,5 @@
 #= require jquery
-#= require underscore
-# =require backbone
-#= require bootstrapManifest
-# =require socket.io
-# =require helpers
+#= require socket.io
 
 @a = @a || {}
 
@@ -16,15 +12,20 @@ $(window).ready ->
     console.log "connected"
     socket.emit "hello", "world"
 
-  $('#forward').click ->
-    socket.emit $(@).attr 'id'
+  socket.on "imageUpdate", (msg) ->
+    $("#live").attr 'src', "data:image/jped;base64,#{msg}"
 
-  $('#backward').click ->
-    socket.emit $(@).attr 'id'
-
-  $('#left').click ->
-    socket.emit $(@).attr 'id'
-
-  $('#right').click ->
-    socket.emit $(@).attr 'id'
-
+  emitter = false
+  id = ''
+  $('button').on('mousedown touchstart', ->
+    if emitter
+      window.clearInterval emitter
+    id = $(@).attr 'id'
+    emitter = window.setInterval ->
+      socket.emit id
+    , 10
+    return false
+  ).on 'mouseup touchend', ->
+    if emitter
+      window.clearInterval emitter
+    return false
