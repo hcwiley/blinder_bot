@@ -8,7 +8,7 @@ else
     streamer -c /dev/video1 -o public/img/foobar.jpeg &
   fi
 fi
-sleep 0.4
+sleep 0.5
 #sysctl vm.overcommit_memory=0
 PID=$(pidof streamer)
 #echo $PID

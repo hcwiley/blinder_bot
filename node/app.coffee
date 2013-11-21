@@ -14,8 +14,8 @@ SerialPort = require("serialport").SerialPort
 serialPort = new SerialPort process.env.SERIAL_PORT,
   baudrate: 9600
 , false
-
 serialError = false
+
 # create app, server, and web sockets
 app = express()
 server = http.createServer(app)
@@ -109,12 +109,14 @@ serialPort.on 'error', (err) ->
   serialError = true
   openSerial()
 
-setTimeout ->
-  console.log "run this: "
-  console.log "#{process.env.CWD}/captureImage.sh"
-  child.execFile "#{process.env.CWD}/captureImage.sh", (err, stdout, stderr) ->
-    console.log stdout
-, 500
+#fs = require 'fs'
+#captureImage = ->
+  #child.execFile "./captureImage.sh", (err, stdout, stderr) ->
+    #fs.readFile './public/img/foobar.jpeg', (err, data)->
+      #io.sockets.emit "imageUpdate", data.toString('base64')
+    #captureImage()
+
+#captureImage()
 
 server.listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

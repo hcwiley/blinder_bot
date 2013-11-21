@@ -19,7 +19,7 @@
     "less-middleware"       : "0.1.11",
     "socket.io"             : "*",
     "socket.io-client"      : "*",
-    "serialport"            : "*",
+    "serialport"            : "1.2.4",
     "supervisor"            : "*"
   }
 }
