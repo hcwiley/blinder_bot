@@ -109,14 +109,14 @@ serialPort.on 'error', (err) ->
   serialError = true
   openSerial()
 
-#fs = require 'fs'
-#captureImage = ->
-  #child.execFile "./captureImage.sh", (err, stdout, stderr) ->
-    #fs.readFile './public/img/foobar.jpeg', (err, data)->
-      #io.sockets.emit "imageUpdate", data.toString('base64')
-    #captureImage()
+fs = require 'fs'
+captureImage = ->
+  child.execFile "./captureImage.sh", (err, stdout, stderr) ->
+    fs.readFile './public/img/foobar.jpeg', (err, data)->
+      io.sockets.emit "imageUpdate", data.toString('base64')
+    captureImage()
 
-#captureImage()
+captureImage()
 
 server.listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
