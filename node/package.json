@@ -1,12 +1,12 @@
 {
-  "name"      : "studio-brain",
+  "name"      : "blinder_bot",
   "version"   : "0.0.1",
   "private": true,
   "engines": {
-    "node": ">0.8"
+    "node": ">0.10"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "coffee app.coffee"
   },
   "dependencies": {
     "async"                 : "*",
